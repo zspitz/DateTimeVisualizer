@@ -8,7 +8,7 @@
         <my:InstantToStringConverter x:Key="InstantToStringConverter" />
     </DockPanel.Resources>
 
-    <DataGrid DockPanel.Dock="Bottom" MinHeight="100">
+    <DataGrid DockPanel.Dock="Bottom" MinHeight="100" ItemsSource="{Binding Derivations}" AutoGenerateColumns="False">
         <DataGrid.Columns>
             <DataGridTextColumn Header="ID" Binding="{Binding ID}" />
             <DataGridTextColumn Header="Type" Binding="{Binding ProviderKind}" />

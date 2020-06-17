@@ -1,0 +1,37 @@
+﻿<util:AutoGrid x:Class="DateTimeVisualizer.ConfigView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:util="clr-namespace:ZSpitz.Util.Wpf;assembly=ZSpitz.Util.Wpf"
+        Orientation="Vertical" RowCount="3">
+
+    <TextBlock Text="TZDB zones:" Margin="0,0,12,3" />
+    <ListBox SelectionMode="Multiple" MaxHeight="300" SelectedValuePath="Model" ItemsSource="{Binding Tzdb.AvailableZones}" Margin="0,0,12,3">
+        <ListBox.ItemContainerStyle>
+            <Style TargetType="ListBoxItem">
+                <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+            </Style>
+        </ListBox.ItemContainerStyle>
+        <ListBox.ItemTemplate>
+            <DataTemplate>
+                <TextBlock Text="{Binding Model}" />
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>
+    <TextBlock Text="{Binding Tzdb.Model.VersionId}" />
+
+    <TextBlock Text="BCL zones:" Margin="0,0,0,3" />
+    <ListBox SelectionMode="Multiple" MaxHeight="300" SelectedValuePath="Model" ItemsSource="{Binding Bcl.AvailableZones}" Margin="0,0,0,3">
+        <ListBox.ItemContainerStyle>
+            <Style TargetType="ListBoxItem">
+                <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+            </Style>
+        </ListBox.ItemContainerStyle>
+        <ListBox.ItemTemplate>
+            <DataTemplate>
+                <TextBlock Text="{Binding Model}" />
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>
+    <TextBlock Text="{Binding Bcl.Model.VersionId}" />
+
+</util:AutoGrid>

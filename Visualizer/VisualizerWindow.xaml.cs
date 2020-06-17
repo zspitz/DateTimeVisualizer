@@ -25,8 +25,11 @@ namespace DateTimeVisualizer {
 
         protected override (object windowContext, object optionsContext, Config config) GetViewState(object r, ICommand? OpenInNewWindow) {
             var response = (Response)r;
-            var vm = new ResponseVM(response, response.Config);
-            return (vm, response.Config, response.Config);
+            return (
+                new ResponseVM(response, response.Config),
+                new ConfigVM(response.Config),
+                response.Config
+            );
         }
 
         protected override void TransformConfig(Config config, object parameter) => throw new NotImplementedException();
