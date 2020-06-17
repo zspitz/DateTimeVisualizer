@@ -28,4 +28,14 @@ namespace DateTimeVisualizer {
             return $"{instant.ToString("g", culture)}\n{zonedDateTime.ToString("F", culture)}";
         }
     }
+
+    public class DateTimeOnlyConverter : ReadOnlyConverterBase {
+        // TODO Should we recreate the pattern for each call to Convert? There might be a different culture passed in each time
+        private static ZonedDateTimePattern pattern = ZonedDateTimePattern.CreateWithCurrentCulture("uuuu'-'MM'-'dd'T'HH':'mm':'ss;FFFFFFFFF '('o<g>')'", null);
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+            if (value is null) { return UnsetValue; }
+            if (!(value is ZonedDateTime zdt)) { throw new NotImplementedException(); }
+            return pattern.Format(zdt);
+        }
+    }
 }

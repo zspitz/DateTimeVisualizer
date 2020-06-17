@@ -6,15 +6,16 @@
 
     <DockPanel.Resources>
         <my:InstantToStringConverter x:Key="InstantToStringConverter" />
+        <my:DateTimeOnlyConverter x:Key="DateTimeOnlyConverter" />
     </DockPanel.Resources>
 
-    <DataGrid DockPanel.Dock="Bottom" MinHeight="100" ItemsSource="{Binding Derivations}" AutoGenerateColumns="False">
+    <DataGrid DockPanel.Dock="Bottom" MinHeight="100" ItemsSource="{Binding Derivations}" AutoGenerateColumns="False" Name="dgAppliedZones">
         <DataGrid.Columns>
             <DataGridTextColumn Header="ID" Binding="{Binding ID}" />
             <DataGridTextColumn Header="Type" Binding="{Binding ProviderKind}" />
-            <DataGridTextColumn Header="UTC" Binding="{Binding DerivedUtc}" />
-            <DataGridTextColumn Header="First mapping" Binding="{Binding DerivedEarlyMapping}" />
-            <DataGridTextColumn Header="Later mapping" Binding="{Binding DerivedLaterMapping}" />
+            <DataGridTextColumn Header="UTC" Binding="{Binding DerivedUtc, Converter={StaticResource DateTimeOnlyConverter}}" SortMemberPath="DerivedUtcSorter" />
+            <DataGridTextColumn Header="First mapping" Binding="{Binding DerivedEarlyMapping, Converter={StaticResource DateTimeOnlyConverter}}" SortMemberPath="DerivedEarlyMappingSorter" />
+            <DataGridTextColumn Header="Later mapping" Binding="{Binding DerivedLaterMapping, Converter={StaticResource DateTimeOnlyConverter}}" SortMemberPath="DerivedLaterMappingSorter" />
         </DataGrid.Columns>
     </DataGrid>
 

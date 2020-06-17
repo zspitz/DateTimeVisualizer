@@ -27,6 +27,7 @@ namespace DateTimeVisualizer.UI {
         public LocalDateTime Local { get; }
         public DateTimeZone? LocalZone { get; }
         public List<DateTimeZonedDerivations> Derivations { get; }
+        public string WindowTitle => $"DateTime Visualizer -- {Local} ({Model.Source.Kind})";
         
     }
 }

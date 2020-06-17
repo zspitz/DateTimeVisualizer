@@ -39,5 +39,8 @@ namespace DateTimeVisualizer.UI {
         public ZonedDateTime? DerivedUtc { get; }
         public ZonedDateTime? DerivedEarlyMapping { get; }
         public ZonedDateTime? DerivedLaterMapping { get; }
+        public LocalDateTime? DerivedUtcSorter => DerivedUtc?.LocalDateTime;
+        public LocalDateTime? DerivedEarlyMappingSorter => DerivedEarlyMapping?.LocalDateTime;
+        public LocalDateTime? DerivedLaterMappingSorter => DerivedLaterMapping?.LocalDateTime;
     }
 }
