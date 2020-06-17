@@ -9,13 +9,27 @@
     <Import_RootNamespace>DateTimeVisualizer</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)DateTimeView.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Views\ConfigView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\DateTimeView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)DateTimeView.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ConfigView.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>ConfigView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Converters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\DateTimeView.xaml.cs">
       <DependentUpon>DateTimeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ConfigVM.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DateTimeZonedDerivations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ResponseVM.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Views\" />
   </ItemGroup>
 </Project>

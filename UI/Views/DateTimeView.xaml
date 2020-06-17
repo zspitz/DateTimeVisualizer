@@ -8,24 +8,21 @@
         <my:InstantToStringConverter x:Key="InstantToStringConverter" />
     </DockPanel.Resources>
 
-    <DockPanel DockPanel.Dock="Right">
-        <TextBlock DockPanel.Dock="Top" Text="Additional zones:" FontWeight="Bold" Margin="0,0,0,3" />
-        <DataGrid>
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding ID}" />
-                <DataGridTextColumn Header="Type" Binding="{Binding ProviderKind}" />
-                <DataGridTextColumn Header="UTC" Binding="{Binding DerivedUtc}" />
-                <DataGridTextColumn Header="First mapping" Binding="{Binding DerivedEarlyMapping}" />
-                <DataGridTextColumn Header="Later mapping" Binding="{Binding DerivedLaterMapping}" />
-            </DataGrid.Columns>
-        </DataGrid>
+    <DataGrid DockPanel.Dock="Bottom" MinHeight="100">
+        <DataGrid.Columns>
+            <DataGridTextColumn Header="ID" Binding="{Binding ID}" />
+            <DataGridTextColumn Header="Type" Binding="{Binding ProviderKind}" />
+            <DataGridTextColumn Header="UTC" Binding="{Binding DerivedUtc}" />
+            <DataGridTextColumn Header="First mapping" Binding="{Binding DerivedEarlyMapping}" />
+            <DataGridTextColumn Header="Later mapping" Binding="{Binding DerivedLaterMapping}" />
+        </DataGrid.Columns>
+    </DataGrid>
 
-    </DockPanel>
+    <TextBlock DockPanel.Dock="Bottom" Text="Additional zones:" FontWeight="Bold" Margin="0,0,0,3" />
 
-    <util:AutoGrid Orientation="Horizontal" ColumnCount="2" Margin="0,0,6,6" RowHeight="*" ChildMargin="0,0,6,6" ChildVerticalAlignment="Center" Grid.IsSharedSizeScope="True">
+    <util:AutoGrid Orientation="Horizontal" ColumnCount="2" Margin="0,0,6,9" RowHeight="*" ChildMargin="0,0,12,9" ChildVerticalAlignment="Center" Grid.IsSharedSizeScope="True">
         <util:AutoGrid.Resources>
             <Style x:Key="{x:Type TextBlock}" TargetType="TextBlock">
-                
                 <Style.Triggers>
                     <Trigger Property="Grid.Column" Value="0">
                         <Setter Property="FontWeight" Value="Bold" />
@@ -38,13 +35,13 @@
         <TextBlock Text="{Binding Local}" />
         <TextBlock Text="Kind:" />
         <TextBlock Text="{Binding Model.Source.Kind}"/>
-        <TextBlock Text="Derived UTC:" />
+        <TextBlock Text="As UTC:" />
         <TextBlock Text="{Binding Model.UtcInstant, Converter={StaticResource InstantToStringConverter}}" />
         <TextBlock Text="Local zone:" />
         <TextBlock Text="{Binding LocalZone}" />
-        <TextBlock Text="First derived local:" />
+        <TextBlock Text="As local - earlier mapping:" />
         <TextBlock Text="{Binding Model.FirstDerivedInstant, Converter={StaticResource InstantToStringConverter}}" />
-        <TextBlock Text="Later derived local:" />
+        <TextBlock Text="As local - later mapping:" />
         <TextBlock Text="{Binding Model.LastDerivedInstant, Converter={StaticResource InstantToStringConverter}}" />
     </util:AutoGrid>
     
