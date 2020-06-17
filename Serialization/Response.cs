@@ -1,44 +1,40 @@
 ﻿using NodaTime;
 using System;
-using System.Linq;
 using static NodaTime.DateTimeZoneProviders;
 using static System.DateTimeKind;
-using static System.Globalization.CultureInfo;
 using ZSpitz.Util;
+using NodaTime.Text;
 
 namespace DateTimeVisualizer.Serialization {
+    [Serializable]
     public class Response {
         public Response(DateTime source, Config config) {
+            Source = source;
+
+            // TODO GetSystemDefault may throw an exception for nonstandard Windows time zones
+            // https://nodatime.org/3.0.x/api/NodaTime.IDateTimeZoneProvider.html#NodaTime_IDateTimeZoneProvider_GetSystemDefault
             var localTimeZone = Tzdb.GetSystemDefault();
             LocalTimeZoneId = localTimeZone.Id;
 
             if (source.Kind.In(Utc, Unspecified)) {
-                UtcInstant = Instant.FromDateTimeUtc(source).ToString("g", InvariantCulture);
+                var utc = DateTime.SpecifyKind(source, Utc);
+                UtcInstant = InstantPattern.ExtendedIso.Format(Instant.FromDateTimeUtc(utc));
             }
 
-            ZonedDateTime? zonedDateTime1 = null;
-            ZonedDateTime? zonedDateTime2 = null;
             if (source.Kind.In(Local, Unspecified)) {
-                var local = LocalDateTime.FromDateTime(source);
-                try {
-                    zonedDateTime1 = local.InZoneStrictly(localTimeZone);
-                } catch (AmbiguousTimeException ambiguousTimeException) {
-                    zonedDateTime1 = ambiguousTimeException.EarlierMapping;
-                    zonedDateTime2 = ambiguousTimeException.LaterMapping;
-                } catch (SkippedTimeException) {
-                    // intentionally blank
-                }
+                var local = LocalDateTime.FromDateTime(DateTime.SpecifyKind(source, Local));
+                var (zonedDateTime1, zonedDateTime2) = localTimeZone.MapLocal(local);
+                FirstDerivedInstant = zonedDateTime1.ToInstantString();
+                LastDerivedInstant = zonedDateTime2.ToInstantString();
             }
-            LocalInstants = new[] { zonedDateTime1, zonedDateTime2 }
-                .Where(x => x is { })
-                .Select(x => x!.ToInstantString())
-                .ToArray();
 
             Config = config;
         }
 
+        public DateTime Source { get; }
         public string? UtcInstant { get; }
-        public string[] LocalInstants { get; }
+        public string? FirstDerivedInstant { get; }
+        public string? LastDerivedInstant { get; }
         public string? LocalTimeZoneId { get; }
         public Config Config { get; }
     }

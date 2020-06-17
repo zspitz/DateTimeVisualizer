@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>e1a09515-d6d4-4041-b1d4-a621ea6e973c</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>DateTimeVisualizer</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)DateTimeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)DateTimeView.xaml.cs">
+      <DependentUpon>DateTimeView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+</Project>

@@ -13,12 +13,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Package", "Package\Package.
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UI", "UI\UI.shproj", "{E1A09515-D6D4-4041-B1D4-A621EA6E973C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_test", "_test\_test.csproj", "{975D33AD-3198-45F0-9CFB-52115DE050AA}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Serialization\Serialization.projitems*{1c40d0f0-71c5-43ac-9709-5771a8600b14}*SharedItemsImports = 5
 		Serialization\Serialization.projitems*{2d1d6b64-44ae-45f2-91a1-4392106c9f87}*SharedItemsImports = 5
+		UI\UI.projitems*{2d1d6b64-44ae-45f2-91a1-4392106c9f87}*SharedItemsImports = 5
 		Serialization\Serialization.projitems*{46ce375f-a93d-482d-b923-de84e9c4e03e}*SharedItemsImports = 13
 		UI\UI.projitems*{e1a09515-d6d4-4041-b1d4-a621ea6e973c}*SharedItemsImports = 13
+		UI\UI.projitems*{fe85fb9d-06e3-4b15-bcde-9b388c8c1b44}*SharedItemsImports = 5
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +41,10 @@ Global
 		{2D1D6B64-44AE-45F2-91A1-4392106C9F87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D1D6B64-44AE-45F2-91A1-4392106C9F87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D1D6B64-44AE-45F2-91A1-4392106C9F87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{975D33AD-3198-45F0-9CFB-52115DE050AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{975D33AD-3198-45F0-9CFB-52115DE050AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{975D33AD-3198-45F0-9CFB-52115DE050AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{975D33AD-3198-45F0-9CFB-52115DE050AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

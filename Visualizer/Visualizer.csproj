@@ -18,9 +18,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="ZSpitz.Util.Wpf" Version="0.0.29" />
     <PackageReference Include="Octokit" Version="0.48.0" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="NodaTime" Version="3.0.0" />
     <ProjectReference Include="..\Debuggee\Debuggee.csproj" />
   </ItemGroup>
 
@@ -29,5 +27,7 @@
       <ReferenceCopyLocalPaths Condition=" '%(ReferenceCopyLocalPaths.NuGetPackageId)' != '' " Update="%(ReferenceCopyLocalPaths)" DestinationSubDirectory="DateTimeVisualizer\" />
     </ItemGroup>
   </Target>
+
+  <Import Project="..\UI\UI.projitems" Label="Shared" />
   
 </Project>

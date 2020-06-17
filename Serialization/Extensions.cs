@@ -1,17 +1,30 @@
 ﻿using NodaTime;
+using NodaTime.Text;
+using NodaTime.TimeZones;
 using System.Diagnostics.CodeAnalysis;
-using static System.Globalization.CultureInfo;
 
 #if NET45
 using System.Linq;
 #endif
 
 namespace DateTimeVisualizer.Serialization {
-    internal static class Extensions {
-        internal static string ToInstantString(this ZonedDateTime x) => x.ToInstant().ToString("g", InvariantCulture);
+    public static class Extensions {
+        public static void Deconstruct(this ZoneLocalMapping mapping, out ZonedDateTime? first, out ZonedDateTime? last) {
+            first = mapping.Count > 0 ? mapping.First() : (ZonedDateTime?)null;
+            last = mapping.Count == 2 ? mapping.Last() : (ZonedDateTime?)null;
+        }
 
-        [return: NotNullIfNotNull("x")]
-        internal static string? ToInstantString(this ZonedDateTime? x) => x?.ToInstantString();
+        public static Instant? ParseOrNull(this InstantPattern pattern, string? s) {
+            if (s is null) { return null; }
+            var parseResult = pattern.Parse(s);
+            if (!parseResult.Success) { return null; }
+            return parseResult.Value;
+        }
+
+        public static string? ToInstantString(this ZonedDateTime? zonedDateTime) {
+            if (zonedDateTime is null) { return null; }
+            return InstantPattern.ExtendedIso.Format(zonedDateTime.Value.ToInstant());
+        }
     }
 }
 
