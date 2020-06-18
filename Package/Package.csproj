@@ -8,6 +8,7 @@
     <Nullable>enable</Nullable>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <UseWPF>true</UseWPF>
+    <Configurations>Debug</Configurations>
   </PropertyGroup>
 
   <!-- Package properties -->

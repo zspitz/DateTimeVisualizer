@@ -348,3 +348,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/_postBuild
+/DateTimeVisualizer.Dev.sln
+/DateTimeVisualizer.Dev.sln
