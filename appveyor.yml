@@ -1,0 +1,65 @@
+version: 0.1.{build}
+image: Visual Studio 2019
+configuration: Debug
+init:
+  - git config --global core.autocrlf false
+branches:
+  only:
+    - master
+skip_tags:  true
+only_commits:
+  files:
+    - Debuggee/
+    - Package/
+    - Serialization/
+    - UI/
+    - Visualizer/
+    - appveyor.yml
+
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
+  assembly_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
+
+before_build:
+- cmd: dotnet restore
+
+install:
+- cmd: git submodule update --init --recursive
+
+matrix:
+  fast_finish: true
+
+after_build:
+  - 7z a %APPVEYOR_BUILD_FOLDER%\DateTimeVisualizer.2017.zip -r %APPVEYOR_BUILD_FOLDER%\Debuggee\bin\Debug\net2.0\*.dll"
+  - 7z a %APPVEYOR_BUILD_FOLDER%\DateTimeVisualizer.2017.zip -r %APPVEYOR_BUILD_FOLDER%\Visualizer\bin\Debug\net472\*.dll*
+  - 7z a %APPVEYOR_BUILD_FOLDER%\DateTimeVisualizer.2019.zip -r %APPVEYOR_BUILD_FOLDER%\Debuggee\bin\Debug\*.dll*
+  - 7z a %APPVEYOR_BUILD_FOLDER%\DateTimeVisualizer.2019.zip -r %APPVEYOR_BUILD_FOLDER%\Visualizer\bin\Debug\net472\*.dll*
+  
+artifacts:
+  - path: DateTimeVisualizer.2019.zip
+    type: File
+    name: visualizer
+
+  - path: DateTimeVisualizer.2017.zip
+    type: File
+    name: visualizer
+
+  - path: '**\*.nupkg'
+    type: NuGetPackage
+
+deploy:
+  - provider: GitHub
+    description: ''
+    auth_token:
+      secure: NgxEvJd/ApBpuz6rwCNDfOI5c6nAvBIabLMj1vAtzuV4ozyaVDfjRJKa7WeJK2Ri
+    artifact: visualizer
+
+  - provider: NuGet
+    api_key:
+      secure: 76XN9J7Gg4Kkxt4XowKWEs8fzUQLXyJOKuPBVe455dWyXjOSMuWmueSWEPNeRAxy
+    artifact: /.*\.nupkg/
