@@ -63,7 +63,7 @@ To delete the visualizer:
 
 ## Build
 
-The project makes use of submodules, so you need to clone or pull changes into the repo using `--recurse-submodules`, as described [in the Git documentation](https://git-scm.com/book/en/v2/Git-Tools-Submodules#_cloning_submodules).
+The project makes use of submodules from [Periscope](https://github.com/zspitz/Periscope) and [Periscope.Debuggee](https://github.com/zspitz/Periscope.Debuggee), so you need to clone or pull changes into the repo using `--recurse-submodules`, as described [in the Git documentation](https://git-scm.com/book/en/v2/Git-Tools-Submodules#_cloning_submodules).
 
 ## Contributing / Feedback
 
