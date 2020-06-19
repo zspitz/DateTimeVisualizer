@@ -25,7 +25,7 @@ This project provides a custom debugging visualizer that maps out these possible
 
 ## Usage
 
-Choose **DateTime Visualizer** from the magnifying glass dropdown while in a Visual Studio debugging session. If there is only one entry, or you've previously chosen it, you can click directly on the magnifying glass.
+Choose **DateTime Visualizer** from the magnifying glass dropdown on an expression which references a `DateTime` while in a Visual Studio debugging session. If there is only one entry, or you've previously chosen it, you can click directly on the magnifying glass.
 
 > **Note**  
 > If the type of the target expression is `DateTime`:
