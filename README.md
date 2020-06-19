@@ -4,17 +4,22 @@
 
 A .NET `DateTime` value can potentially have multiple ambiguous meanings.
 
-* `DateTime` has no inherent timezone information associated with it, aside from the timezone determined (or not determined) by the `DateTime.Kind` property -- UTC (`DateTimeKind.Utc`), local to the server (`DateTimeKind.Local`), or up for grabs (`DateTimeKind.Unspecified`). Depending on the timezone, a single `DateTime` could refer to various instants in time.
-* For a given timezone, time cannot be expressed as a linear sequence of `DateTime`s -- there may be gaps (when the clock moves forward), or there may be places where the sequence doubles back (when the clock moves back). Even once we've associated a specific timezone with a `DateTime`, the combination may refer to 1, 0 or 2 instants in time.
+* `DateTime` has no inherent timezone information associated with it, aside from the timezone determined (or not determined) by the `DateTime.Kind` property:
+  - UTC (`DateTimeKind.Utc`)
+  - local to the system (`DateTimeKind.Local`)
+  - up for grabs (`DateTimeKind.Unspecified`)
+  
+  The same `DateTime` could refer to different instants in time in different timezones.
+* For a given timezone, time cannot be expressed as a linear sequence of `DateTime`s -- there may be gaps (when the clock moves forward), or there may be places where the sequence doubles back (when the clock moves back). The combination of a `DateTime` and a time zone may refer to 1, 0 or 2 instants in time.
 
-This project provides a custom debugging visualizer that maps out these possible instances for a given `DateTime`, using the NodaTime library. In addition, you can choose a list of timezones to apply to each of those possible instances.
+This project provides a custom debugging visualizer that maps out these possible instants for a given `DateTime`, using the NodaTime library. In addition, you can choose a list of timezones to apply to each of those possible instants.
 
 ![Screenshot](screenshot1.png)
 
 * **As UTC**: If the date/time is interpreted as UTC, it will refer to this instant. Because date/times in UTC are always in linear succession, this instant is unambiguous.
 * **Local zone**: The local timezone for the debuggee process.
 * **As local -- earlier / later mapping**: If the datetime is interpreted as local (to the system), it may refer to 1 instant (earlier mapping), 2 instants (earlier or later mapping), or 0 instants.
-* **Additional zones**: You can choose from 
+* **Additional zones**: You can choose from
 
 ## Usage
 
