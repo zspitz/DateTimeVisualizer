@@ -71,4 +71,4 @@ The project makes use of submodules, so you need to clone or pull changes into t
 
 * The [NodaTime](https://nodatime.org/) project
 * John M. Wright's series on [writing debugger visualizers](https://wrightfully.com/writing-a-readonly-debugger-visualizer)
-* [Greenshot](https://getgreenshot.org/) and [ScreenToGIF](https://www.screentogif.com/) for the screenshots
+* [Greenshot](https://getgreenshot.org/) for the screenshots
