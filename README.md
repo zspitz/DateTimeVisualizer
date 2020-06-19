@@ -19,7 +19,9 @@ This project provides a custom debugging visualizer that maps out these possible
 * **As UTC**: If the date/time is interpreted as UTC, it will refer to this instant. Because date/times in UTC are always in linear succession, this instant is unambiguous.
 * **Local zone**: The local timezone for the debuggee process.
 * **As local -- earlier / later mapping**: If the datetime is interpreted as local (to the system), it may refer to 1 instant (earlier mapping), 2 instants (earlier or later mapping), or 0 instants.
-* **Additional zones**: You can choose from
+* **Additional zones**: You can choose additional zones from the built-in NodaTime Tzdb and Bcl zone providers:
+
+  ![Choose zone](choose-zones.gif)
 
 ## Usage
 
