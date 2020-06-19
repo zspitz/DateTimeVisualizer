@@ -9,19 +9,7 @@
         <my:DateTimeOnlyConverter x:Key="DateTimeOnlyConverter" />
     </DockPanel.Resources>
 
-    <DataGrid DockPanel.Dock="Bottom" MinHeight="100" ItemsSource="{Binding Derivations}" AutoGenerateColumns="False" Name="dgAppliedZones">
-        <DataGrid.Columns>
-            <DataGridTextColumn Header="ID" Binding="{Binding ID}" />
-            <DataGridTextColumn Header="Type" Binding="{Binding ProviderKind}" />
-            <DataGridTextColumn Header="UTC" Binding="{Binding DerivedUtc, Converter={StaticResource DateTimeOnlyConverter}}" SortMemberPath="DerivedUtcSorter" />
-            <DataGridTextColumn Header="First mapping" Binding="{Binding DerivedEarlyMapping, Converter={StaticResource DateTimeOnlyConverter}}" SortMemberPath="DerivedEarlyMappingSorter" />
-            <DataGridTextColumn Header="Later mapping" Binding="{Binding DerivedLaterMapping, Converter={StaticResource DateTimeOnlyConverter}}" SortMemberPath="DerivedLaterMappingSorter" />
-        </DataGrid.Columns>
-    </DataGrid>
-
-    <TextBlock DockPanel.Dock="Bottom" Text="Additional zones:" FontWeight="Bold" Margin="0,0,0,3" />
-
-    <util:AutoGrid Orientation="Horizontal" ColumnCount="2" Margin="0,0,6,9" RowHeight="*" ChildMargin="0,0,12,9" ChildVerticalAlignment="Center" Grid.IsSharedSizeScope="True">
+    <util:AutoGrid Orientation="Horizontal" ColumnCount="2" Margin="0,0,6,9" RowHeight="*" ChildMargin="0,0,12,9" ChildVerticalAlignment="Center" Grid.IsSharedSizeScope="True" DockPanel.Dock="Top">
         <util:AutoGrid.Resources>
             <Style x:Key="{x:Type TextBlock}" TargetType="TextBlock">
                 <Style.Triggers>
@@ -31,7 +19,7 @@
                 </Style.Triggers>
             </Style>
         </util:AutoGrid.Resources>
-        
+
         <TextBlock Text="Local date / time:" />
         <TextBlock Text="{Binding Local}" />
         <TextBlock Text="Kind:" />
@@ -45,5 +33,17 @@
         <TextBlock Text="As local - later mapping:" />
         <TextBlock Text="{Binding Model.LastDerivedInstant, Converter={StaticResource InstantToStringConverter}}" />
     </util:AutoGrid>
-    
+
+    <TextBlock DockPanel.Dock="Top" Text="Additional zones:" FontWeight="Bold" Margin="0,0,0,3" />
+
+    <DataGrid MinHeight="100" ItemsSource="{Binding Derivations}" AutoGenerateColumns="False" Name="dgAppliedZones">
+        <DataGrid.Columns>
+            <DataGridTextColumn Header="ID" Binding="{Binding ID}" />
+            <DataGridTextColumn Header="Type" Binding="{Binding ProviderKind}" />
+            <DataGridTextColumn Header="UTC" Binding="{Binding DerivedUtc, Converter={StaticResource DateTimeOnlyConverter}}" SortMemberPath="DerivedUtcSorter" />
+            <DataGridTextColumn Header="First mapping" Binding="{Binding DerivedEarlyMapping, Converter={StaticResource DateTimeOnlyConverter}}" SortMemberPath="DerivedEarlyMappingSorter" />
+            <DataGridTextColumn Header="Later mapping" Binding="{Binding DerivedLaterMapping, Converter={StaticResource DateTimeOnlyConverter}}" SortMemberPath="DerivedLaterMappingSorter" />
+        </DataGrid.Columns>
+    </DataGrid>
+
 </DockPanel>
