@@ -2,7 +2,6 @@
 using System;
 using static NodaTime.DateTimeZoneProviders;
 using static System.DateTimeKind;
-using ZSpitz.Util;
 using NodaTime.Text;
 
 namespace DateTimeVisualizer.Serialization {
@@ -16,23 +15,19 @@ namespace DateTimeVisualizer.Serialization {
             var localTimeZone = Tzdb.GetSystemDefault();
             LocalTimeZoneId = localTimeZone.Id;
 
-            if (source.Kind.In(Utc, Unspecified)) {
-                var utc = DateTime.SpecifyKind(source, Utc);
-                UtcInstant = InstantPattern.ExtendedIso.Format(Instant.FromDateTimeUtc(utc));
-            }
+            var utc = DateTime.SpecifyKind(source, Utc);
+            UtcInstant = InstantPattern.ExtendedIso.Format(Instant.FromDateTimeUtc(utc));
 
-            if (source.Kind.In(Local, Unspecified)) {
-                var local = LocalDateTime.FromDateTime(DateTime.SpecifyKind(source, Local));
-                var (zonedDateTime1, zonedDateTime2) = localTimeZone.MapLocal(local);
-                FirstDerivedInstant = zonedDateTime1.ToInstantString();
-                LastDerivedInstant = zonedDateTime2.ToInstantString();
-            }
+            var local = LocalDateTime.FromDateTime(DateTime.SpecifyKind(source, Local));
+            var (zonedDateTime1, zonedDateTime2) = localTimeZone.MapLocal(local);
+            FirstDerivedInstant = zonedDateTime1.ToInstantString();
+            LastDerivedInstant = zonedDateTime2.ToInstantString();
 
             Config = config;
         }
 
         public DateTime Source { get; }
-        public string? UtcInstant { get; }
+        public string UtcInstant { get; }
         public string? FirstDerivedInstant { get; }
         public string? LastDerivedInstant { get; }
         public string? LocalTimeZoneId { get; }
