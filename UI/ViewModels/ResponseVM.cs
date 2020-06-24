@@ -9,8 +9,15 @@ namespace DateTimeVisualizer.UI {
     public class ResponseVM : ViewModelBase<Response> {
         public ResponseVM(Response model, Config config) : base(model) {
             Local = LocalDateTime.FromDateTime(model.Source);
-            if (model.LocalTimeZoneId is { }) {
-                LocalZone = Tzdb.GetZoneOrNull(model.LocalTimeZoneId);
+            var provider = model.Provider switch
+            {
+                BuiltInProvider.Tzdb => Tzdb,
+                BuiltInProvider.Bcl => Bcl,
+                _ => null
+            };
+
+            if (model.LocalZoneId is { } && provider is { }) {
+                LocalZone = provider.GetZoneOrNull(model.LocalZoneId);
             }
 
             Derivations =

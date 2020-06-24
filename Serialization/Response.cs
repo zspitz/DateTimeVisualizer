@@ -9,28 +9,39 @@ namespace DateTimeVisualizer.Serialization {
     public class Response {
         public Response(DateTime source, Config config) {
             Source = source;
+            Config = config;
 
-            // TODO GetSystemDefault may throw an exception for nonstandard Windows time zones
-            // https://nodatime.org/3.0.x/api/NodaTime.IDateTimeZoneProvider.html#NodaTime_IDateTimeZoneProvider_GetSystemDefault
             var localTimeZone = Tzdb.GetSystemDefault();
-            LocalTimeZoneId = localTimeZone.Id;
+            if (localTimeZone is { }) {
+                Provider = BuiltInProvider.Tzdb;
+            } else {
+                localTimeZone = Bcl.GetSystemDefault();
+                if (localTimeZone is { }) {
+                    Provider = BuiltInProvider.Bcl;
+                }
+            }
 
             var utc = DateTime.SpecifyKind(source, Utc);
             UtcInstant = InstantPattern.ExtendedIso.Format(Instant.FromDateTimeUtc(utc));
+
+            if (localTimeZone is null) { return; }
+
+            LocalZoneId = localTimeZone.Id;
 
             var local = LocalDateTime.FromDateTime(DateTime.SpecifyKind(source, Local));
             var (zonedDateTime1, zonedDateTime2) = localTimeZone.MapLocal(local);
             FirstDerivedInstant = zonedDateTime1.ToInstantString();
             LastDerivedInstant = zonedDateTime2.ToInstantString();
 
-            Config = config;
         }
 
         public DateTime Source { get; }
         public string UtcInstant { get; }
         public string? FirstDerivedInstant { get; }
         public string? LastDerivedInstant { get; }
-        public string? LocalTimeZoneId { get; }
+        public string? LocalZoneId { get; }
+        public BuiltInProvider? Provider { get; }
+
         public Config Config { get; }
     }
 }
