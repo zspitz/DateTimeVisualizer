@@ -7,6 +7,8 @@
     <DockPanel.Resources>
         <my:InstantToStringConverter x:Key="InstantToStringConverter" />
         <my:DateTimeOnlyConverter x:Key="DateTimeOnlyConverter" />
+        <my:ZoneStringConverter x:Key="ZoneStringConverter" />
+        <my:UpperConverter x:Key="UpperConverter" />
     </DockPanel.Resources>
 
     <util:AutoGrid Orientation="Horizontal" ColumnCount="2" Margin="0,0,6,9" RowHeight="*" ChildMargin="0,0,12,9" ChildVerticalAlignment="Center" Grid.IsSharedSizeScope="True" DockPanel.Dock="Top">
@@ -27,7 +29,14 @@
         <TextBlock Text="As UTC:" />
         <TextBlock Text="{Binding Model.UtcInstant, Converter={StaticResource InstantToStringConverter}}" />
         <TextBlock Text="Local zone:" />
-        <TextBlock Text="{Binding LocalZone}" />
+        <TextBlock>
+            <TextBlock.Text>
+                <MultiBinding Converter="{StaticResource ZoneStringConverter}">
+                    <Binding Path="LocalZone" />
+                    <Binding Path="Model.Provider" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
         <TextBlock Text="As local - earlier mapping:" />
         <TextBlock Text="{Binding Model.FirstDerivedInstant, Converter={StaticResource InstantToStringConverter}}" />
         <TextBlock Text="As local - later mapping:" />
@@ -37,9 +46,23 @@
     <TextBlock DockPanel.Dock="Top" Text="Additional zones:" FontWeight="Bold" Margin="0,0,0,3" />
 
     <DataGrid MinHeight="100" ItemsSource="{Binding Derivations}" AutoGenerateColumns="False" Name="dgAppliedZones">
+        <DataGrid.RowStyle>
+            <Style TargetType="DataGridRow">
+                <Setter Property="ToolTip">
+                    <Setter.Value>
+                        <ToolTip>
+                            <MultiBinding Converter="{StaticResource ZoneStringConverter}">
+                                <Binding Path="Zone" />
+                                <Binding Path="Provider" />
+                            </MultiBinding>
+                        </ToolTip>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </DataGrid.RowStyle>
         <DataGrid.Columns>
             <DataGridTextColumn Header="ID" Binding="{Binding ID}" />
-            <DataGridTextColumn Header="Type" Binding="{Binding ProviderKind}" />
+            <DataGridTextColumn Header="Provider" Binding="{Binding Provider, Converter={StaticResource UpperConverter}}" />
             <DataGridTextColumn Header="UTC" Binding="{Binding DerivedUtc, Converter={StaticResource DateTimeOnlyConverter}}" SortMemberPath="DerivedUtcSorter" />
             <DataGridTextColumn Header="First mapping" Binding="{Binding DerivedEarlyMapping, Converter={StaticResource DateTimeOnlyConverter}}" SortMemberPath="DerivedEarlyMappingSorter" />
             <DataGridTextColumn Header="Later mapping" Binding="{Binding DerivedLaterMapping, Converter={StaticResource DateTimeOnlyConverter}}" SortMemberPath="DerivedLaterMappingSorter" />

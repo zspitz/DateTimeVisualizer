@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
     <RootNamespace>DateTimeVisualizer.Debuggee</RootNamespace>
     <AssemblyName>DateTimeVisualizer.Debuggee</AssemblyName>
     <LangVersion>8.0</LangVersion>
@@ -31,8 +31,8 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="NodaTime" Version="3.0.0" />
-    <PackageReference Include="ZSpitz.Util" Version="0.0.31" />
+    <PackageReference Include="NodaTime" Version="3.0.0"  />
+    <PackageReference Include="ZSpitz.Util" Version="0.0.32" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net45'">

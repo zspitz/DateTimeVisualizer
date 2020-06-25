@@ -2,9 +2,12 @@
 using System;
 using System.Globalization;
 using ZSpitz.Util.Wpf;
-using static System.Windows.DependencyProperty;
 using static NodaTime.DateTimeZoneProviders;
 using NodaTime.Text;
+using DateTimeVisualizer.Serialization;
+using System.Collections.Generic;
+using ZSpitz.Util;
+using NodaTime.TimeZones;
 
 namespace DateTimeVisualizer {
     public class InstantToStringConverter : ReadOnlyConverterBase {
@@ -36,6 +39,35 @@ namespace DateTimeVisualizer {
             if (value is null) { return UnsetValue; }
             if (!(value is ZonedDateTime zdt)) { throw new NotImplementedException(); }
             return pattern.Format(zdt);
+        }
+    }
+
+    public class ZoneStringConverter : ReadOnlyMultiConverterBase {
+        public override object Convert(object[] values, Type targetType, object parameter, CultureInfo culture) {
+            if (!(values[0] is DateTimeZone zone)) { return UnsetValue; }
+
+            var (providerName, dict, otherProvider) = values[1] switch {
+                BuiltInProvider.Tzdb => (nameof(Tzdb), TzdbDateTimeZoneSource.Default.TzdbToWindowsIds, nameof(Bcl)),
+                BuiltInProvider.Bcl => (nameof(Bcl), TzdbDateTimeZoneSource.Default.WindowsToTzdbIds, nameof(Tzdb)),
+                _ => (null, null, null)
+            };
+
+            if (providerName is null) { return zone.Id; }
+
+            var parts = new List<(string id, string provider)> {
+                {zone.Id, providerName}
+            };
+            if (dict!.TryGetValue(zone.Id, out var otherId)) {
+                parts.Add(otherId, otherProvider!);
+            }
+            return parts.Joined("\n", part => $"{part.id} ({part.provider.ToUpper()})");
+        }
+    }
+
+    public class UpperConverter : ReadOnlyConverterBase {
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+            if (value is null) { return UnsetValue; }
+            return value.ToString().ToUpper();
         }
     }
 }

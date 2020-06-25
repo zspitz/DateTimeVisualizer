@@ -1,7 +1,6 @@
 ﻿using NodaTime;
 using NodaTime.Text;
 using NodaTime.TimeZones;
-using System.Diagnostics.CodeAnalysis;
 
 #if NET45
 using System.Linq;

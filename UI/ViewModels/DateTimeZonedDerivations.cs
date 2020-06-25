@@ -19,23 +19,24 @@ namespace DateTimeVisualizer.UI {
             ID = id;
             
             IDateTimeZoneProvider provider;
-            (provider, ProviderKind) = isTzdb ? (Tzdb, "TZDB") : (Bcl, "BCL");
-            var zone = provider.GetZoneOrNull(id);
-            if (zone is null) { return; }
+            (provider, Provider) = isTzdb ? (Tzdb, BuiltInProvider.Tzdb) : (Bcl, BuiltInProvider.Bcl);
+            Zone = provider.GetZoneOrNull(id);
+            if (Zone is null) { return; }
 
             if (utc is { }) {
-                DerivedUtc = new ZonedDateTime(utc.Value, zone);
+                DerivedUtc = new ZonedDateTime(utc.Value, Zone);
             }
             if (earlyMapping is { }) {
-                DerivedEarlyMapping = new ZonedDateTime(earlyMapping.Value, zone);
+                DerivedEarlyMapping = new ZonedDateTime(earlyMapping.Value, Zone);
             }
             if (laterMapping is { }) {
-                DerivedLaterMapping = new ZonedDateTime(laterMapping.Value, zone);
+                DerivedLaterMapping = new ZonedDateTime(laterMapping.Value, Zone);
             }
         }
 
         public string ID { get; }
-        public string ProviderKind { get; }
+        public DateTimeZone? Zone { get; }
+        public BuiltInProvider Provider { get; }
         public ZonedDateTime? DerivedUtc { get; }
         public ZonedDateTime? DerivedEarlyMapping { get; }
         public ZonedDateTime? DerivedLaterMapping { get; }
