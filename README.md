@@ -25,7 +25,7 @@ This project provides a custom debugging visualizer that maps out these possible
 
 ## Usage
 
-Choose **DateTime Visualizer** from the magnifying glass dropdown while in a Visual Studio debugging session. If there is only one entry, or you've previously chosen it, you can click directly on the magnifying glass.
+Choose **DateTime Visualizer** from the magnifying glass dropdown on an expression which references a `DateTime` while in a Visual Studio debugging session. If there is only one entry, or you've previously chosen it, you can click directly on the magnifying glass.
 
 > **Note**  
 > If the type of the target expression is `DateTime`:
@@ -63,7 +63,7 @@ To delete the visualizer:
 
 ## Build
 
-The project makes use of submodules, so you need to clone or pull changes into the repo using `--recurse-submodules`, as described [in the Git documentation](https://git-scm.com/book/en/v2/Git-Tools-Submodules#_cloning_submodules).
+The project makes use of submodules from [Periscope](https://github.com/zspitz/Periscope) and [Periscope.Debuggee](https://github.com/zspitz/Periscope.Debuggee), so you need to clone or pull changes into the repo using `--recurse-submodules`, as described [in the Git documentation](https://git-scm.com/book/en/v2/Git-Tools-Submodules#_cloning_submodules).
 
 ## Contributing / Feedback
 
