@@ -8,6 +8,9 @@ using DateTimeVisualizer.Serialization;
 using System.Collections.Generic;
 using ZSpitz.Util;
 using NodaTime.TimeZones;
+using System.Windows.Media;
+using static ZSpitz.Util.Wpf.FilterStates;
+using System.Windows;
 
 namespace DateTimeVisualizer {
     public class InstantToStringConverter : ReadOnlyConverterBase {
@@ -68,6 +71,21 @@ namespace DateTimeVisualizer {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             if (value is null) { return UnsetValue; }
             return value.ToString().ToUpper();
+        }
+    }
+
+    public class FilterStateConverter : ReadOnlyConverterBase {
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+            var filterState = (FilterStates?)value;
+            if (targetType == typeof(Brush)) {
+                return filterState == DescendantMatched ? Brushes.Gray : UnsetValue;
+            } else if (targetType == typeof(Visibility)) {
+                if (filterState == null) { return UnsetValue; }
+                return filterState.In(Matched, DescendantMatched) ? Visibility.Visible : Visibility.Collapsed;
+            } else if (targetType == typeof(FontWeight)) {
+                return filterState == Matched ? FontWeights.Bold : UnsetValue;
+            }
+            throw new NotImplementedException();
         }
     }
 }

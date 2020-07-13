@@ -17,8 +17,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ZoneProviderVM.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ZoneVM.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ZoneNodeVM.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\ConfigView.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>ConfigView.xaml</DependentUpon>

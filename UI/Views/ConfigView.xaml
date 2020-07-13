@@ -2,25 +2,33 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:util="clr-namespace:ZSpitz.Util.Wpf;assembly=ZSpitz.Util.Wpf"
+        xmlns:nt="clr-namespace:NodaTime;assembly=NodaTime"
+        xmlns:my="clr-namespace:DateTimeVisualizer"
         Orientation="Vertical" RowCount="3">
+    <util:AutoGrid.Resources>
+        <my:FilterStateConverter x:Key="FilterStateConverter" />
+    </util:AutoGrid.Resources>
 
     <TextBlock Text="TZDB zones:" Margin="0,0,12,3" />
-    <ListBox SelectionMode="Multiple" MaxHeight="300" SelectedValuePath="Model" ItemsSource="{Binding Tzdb.AvailableZones}" Margin="0,0,12,3">
-        <ListBox.ItemContainerStyle>
-            <Style TargetType="ListBoxItem">
-                <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+    <TreeView MaxHeight="300" ItemsSource="{Binding AvailableTzdbZones}">
+        <TreeView.ItemContainerStyle>
+            <Style TargetType="TreeViewItem">
+                <Setter Property="Visibility" Value="{Binding FilterState, Converter={StaticResource FilterStateConverter}}" />
             </Style>
-        </ListBox.ItemContainerStyle>
-        <ListBox.ItemTemplate>
-            <DataTemplate>
-                <TextBlock Text="{Binding Model}" />
-            </DataTemplate>
-        </ListBox.ItemTemplate>
-    </ListBox>
-    <TextBlock Text="{Binding Tzdb.Model.VersionId}" />
+        </TreeView.ItemContainerStyle>
+        <TreeView.ItemTemplate>
+            <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                <StackPanel Orientation="Horizontal" Visibility="{Binding FilterState, Converter={StaticResource FilterStateConverter}}">
+                    <CheckBox Margin="2" IsChecked="{Binding IsSelected}" />
+                    <TextBlock Text="{Binding Text}" Foreground="{Binding FilterState, Converter={StaticResource FilterStateConverter}}" FontWeight="{Binding FilterState, Converter={StaticResource FilterStateConverter}}" />
+                </StackPanel>
+            </HierarchicalDataTemplate>
+        </TreeView.ItemTemplate>
+    </TreeView>
+    <TextBlock Text="{Binding VersionId, Source={x:Static nt:DateTimeZoneProviders.Tzdb}}" />
 
     <TextBlock Text="BCL zones:" Margin="0,0,0,3" />
-    <ListBox SelectionMode="Multiple" MaxHeight="300" SelectedValuePath="Model" ItemsSource="{Binding Bcl.AvailableZones}" Margin="0,0,0,3">
+    <ListBox SelectionMode="Multiple" MaxHeight="300" SelectedValuePath="Text" ItemsSource="{Binding AvailableBclZones}" Margin="0,0,0,3">
         <ListBox.ItemContainerStyle>
             <Style TargetType="ListBoxItem">
                 <Setter Property="IsSelected" Value="{Binding IsSelected}" />
@@ -28,10 +36,10 @@
         </ListBox.ItemContainerStyle>
         <ListBox.ItemTemplate>
             <DataTemplate>
-                <TextBlock Text="{Binding Model}" />
+                <TextBlock Text="{Binding Text}" />
             </DataTemplate>
         </ListBox.ItemTemplate>
     </ListBox>
-    <TextBlock Text="{Binding Bcl.Model.VersionId}" />
+    <TextBlock Text="{Binding VersionId, Source={x:Static nt:DateTimeZoneProviders.Bcl}}" />
 
 </util:AutoGrid>
