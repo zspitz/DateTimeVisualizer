@@ -35,8 +35,8 @@
   <ItemGroup>
     <PackageReference Include="NodaTime" Version="3.0.0" />
     <PackageReference Include="OneOf" Version="2.1.155" />
-    <PackageReference Include="ZSpitz.Util" Version="0.0.39" />
-    <PackageReference Include="ZSpitz.Util.Wpf" Version="0.0.39" />
+    <PackageReference Include="ZSpitz.Util" Version="0.0.40" />
+    <PackageReference Include="ZSpitz.Util.Wpf" Version="0.0.40" />
   </ItemGroup>
 
 </Project>

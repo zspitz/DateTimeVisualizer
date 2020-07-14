@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ZSpitz.Util;
 using static NodaTime.DateTimeZoneProviders;
+using System;
 
 namespace DateTimeVisualizer.UI {
     public class ConfigVM : ViewModelBase<Config> {
@@ -44,5 +45,22 @@ namespace DateTimeVisualizer.UI {
 
         public ZoneNodeVM[] AvailableBclZones { get; }
         public ZoneNodeVM[] AvailableTzdbZones { get; }
+
+        private string _textFilter = "";
+        public string TextFilter { 
+            get => _textFilter; 
+            set {
+                if (_textFilter == value) { return; }
+                NotifyChanged(ref _textFilter, value);
+
+                Action<ZoneNodeVM> action =
+                    _textFilter.IsNullOrWhitespace() ?
+                        (Action<ZoneNodeVM>)(x => x.ResetFilter()) :
+                        x => x.ApplyFilter(data => data.Match(s => s, zone => zone.Id).Contains(_textFilter, StringComparison.OrdinalIgnoreCase));
+
+                AvailableBclZones.ForEach(action);
+                AvailableTzdbZones.ForEach(action);
+            }
+        }
     }
 }
