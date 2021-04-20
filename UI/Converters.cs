@@ -68,10 +68,8 @@ namespace DateTimeVisualizer {
     }
 
     public class UpperConverter : ReadOnlyConverterBase {
-        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-            if (value is null) { return UnsetValue; }
-            return value.ToString().ToUpper();
-        }
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture) => 
+            value?.ToString()?.ToUpper() ?? UnsetValue;
     }
 
     public class FilterStateConverter : ReadOnlyConverterBase {
@@ -81,7 +79,7 @@ namespace DateTimeVisualizer {
                 return filterState == DescendantMatched ? Brushes.Gray : UnsetValue;
             } else if (targetType == typeof(Visibility)) {
                 if (filterState == null) { return UnsetValue; }
-                return filterState.In(Matched, DescendantMatched) ? Visibility.Visible : Visibility.Collapsed;
+                return filterState.Value.In(Matched, DescendantMatched) ? Visibility.Visible : Visibility.Collapsed;
             } else if (targetType == typeof(FontWeight)) {
                 return filterState == Matched ? FontWeights.Bold : UnsetValue;
             }
