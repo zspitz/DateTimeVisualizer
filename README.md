@@ -9,8 +9,9 @@ A .NET `DateTime` value can potentially have multiple ambiguous meanings.
   - local to the system (`DateTimeKind.Local`)
   - up for grabs (`DateTimeKind.Unspecified`)
   
-  The same `DateTime` could refer to different instants in time in different timezones.
-* For a given timezone, time cannot be expressed as a linear sequence of `DateTime`s -- there may be gaps (when the clock moves forward), or there may be places where the sequence doubles back (when the clock moves back). The combination of a `DateTime` and a time zone may refer to 1, 0 or 2 instants in time.
+  The same `DateTime` could refer to different instants in time depending on the timezone.
+  
+* Even within a specific timezone, time cannot be expressed as a linear sequence of `DateTime`s -- there may be gaps (when the clock moves forward), or there may be places where the sequence doubles back (when the clock moves back). The combination of a `DateTime` and a time zone may refer to 1, 0 or 2 instants in time.
 
 This project provides a custom debugging visualizer that maps out these possible instants for a given `DateTime`, using the NodaTime library. In addition, you can choose a list of timezones to apply to each of those possible instants.
 
