@@ -28,18 +28,6 @@ This project provides a custom debugging visualizer that maps out these possible
 
 Choose **DateTime Visualizer** from the magnifying glass dropdown on an expression which references a `DateTime` while in a Visual Studio debugging session. If there is only one entry, or you've previously chosen it, you can click directly on the magnifying glass.
 
-> **Note**  
-> If the type of the target expression is `DateTime`:
->
->     var dte = new DateTime(2001, 1, 1, 1, 1, 1, DateTimeKind.Unspecified);
-> the visualizer API will not pass the `DateTime` across to the debuggee side ([#7](https://github.com/zspitz/DateTimeVisualizer/issues/7)), and you'll see a message like this:
->
-> ![Screenshot](null-at-debuggee-side.png)
->
-> You can workaround this by opening the visualizer on a boxed expression:
->
->     (object)dte
-
 The UI components (views and viewmodels) are also available as a [NuGet package](https://www.nuget.org/packages/DateTimeVisualizer.UI/) for use in your own applications.
 
 ## Requirements / Supports
