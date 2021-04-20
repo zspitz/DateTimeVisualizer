@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net452</TargetFrameworks>
     <RootNamespace>DateTimeVisualizer.Debuggee</RootNamespace>
     <AssemblyName>DateTimeVisualizer.Debuggee</AssemblyName>
     <LangVersion>8.0</LangVersion>
@@ -16,7 +16,7 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' ">
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net452' ">
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <OutputPath>bin/$(Configuration)/net2.0/</OutputPath>
@@ -28,14 +28,14 @@
       <Private>false</Private>
     </Reference>
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+    <PackageReference Include="ZSpitz.Util" Version="0.1.98" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="NodaTime" Version="3.0.0"  />
-    <PackageReference Include="ZSpitz.Util" Version="0.0.34" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net452'">
     <PackageReference Include="NodaTime" Version="2.4.1" />
   </ItemGroup>
   

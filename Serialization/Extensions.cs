@@ -2,10 +2,6 @@
 using NodaTime.Text;
 using NodaTime.TimeZones;
 
-#if NET45
-using System.Linq;
-#endif
-
 namespace DateTimeVisualizer.Serialization {
     public static class Extensions {
         public static void Deconstruct(this ZoneLocalMapping mapping, out ZonedDateTime? first, out ZonedDateTime? last) {
@@ -26,11 +22,3 @@ namespace DateTimeVisualizer.Serialization {
         }
     }
 }
-
-#if NET45
-namespace ZSpitz.Util {
-    internal static class Extensions {
-        internal static bool In<T>(this T val, params T[] vals) => vals.Contains(val);
-    }
-}
-#endif
