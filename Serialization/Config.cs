@@ -14,7 +14,6 @@ namespace DateTimeVisualizer.Serialization {
             BclIds.SetEquals(baseline.BclIds) && TzdbIds.SetEquals(baseline.TzdbIds) ? 
                 ConfigDiffStates.NoAction : 
                 ConfigDiffStates.NeedsWrite;
-        public DateTime? Value { get; set; } // workaround for https://github.com/zspitz/DateTimeVisualizer/issues/7
 #else
     public class Config {
 #endif
